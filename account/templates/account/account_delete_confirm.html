@@ -1,0 +1,63 @@
+{% extends 'account/account_base.html' %}
+
+{% block content_head %}
+	<title>{{ user.username }} - Delete </title>
+{% endblock %}
+
+{% block content_body %}
+<body class="bg-grad-9 font-style-6">
+	<div class="container-fluid font-style-4">
+    <div class="row p-4">
+      <div class="col-8">
+        <a href="{% url 'home' %}" class="text-light" style="text-decoration:none;">
+  		    <i class="fas fa-home" style="font-size:1.5em;"></i>
+        </a>
+      </div>
+      <div class="col-4 text-right">
+          <a class="btn btn-outline-warning" href="{% url 'account:profile' %}"> BlogPics-Profile</a>
+          <a class="btn btn-outline-dark" href="{% url 'account:codeq_profile' %}"> CodeQ-Profile</a>
+        </div>
+      </div>
+  </div>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-2"></div>
+			<div class="col-md-8">
+				{% if user.id != object.id %}
+					<div class="text-center card">
+						<h2 class="text-info">This is Not your Account</h2>
+						<h2 class="text-danger">Please Go to Your account's Delete URL</h2>
+						<h5>
+							<a href="{% url 'account:deleteAccount' user.id %}" class="btn btn-outline-dark">Delete Account</a>
+						</h5>
+					</div>
+				{% else %}
+				<div class="card p-4">
+						<div class="text-dark ">
+							<h4>
+								UserName : {{ user.username }}
+							</h4>
+							<h4>
+								FirstName : {{ user.first_name }}
+							</h4>
+							<h4>
+								LastName : {{ user.last_name }}
+							</h4>
+							<h4>
+								Email : {{ user.email }}
+							</h4>
+						</div>
+						<form method="POST" action="">
+							{% csrf_token %}
+							<h3 class='text-primary py-4'>Are you Sure About Delete Your Account ?</h3>
+							<button type="submit" class="btn btn-danger">Delete Account</button>
+							<a class="btn btn-info m-4" href="{% url 'home' %}">Cancel</a>
+						</form>
+				</div>
+			{% endif %}
+			</div>
+			<div class="col-md-2"></div>
+		</div>
+	</div>
+</body>
+{% endblock %}

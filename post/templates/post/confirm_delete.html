@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+	<div class="container">
+		<div class="p-4 m-4">
+			{% if user.username == post.post_user.username %}
+				<form method="POST" action="">
+					{% csrf_token %}
+					<h5 class='text-light'>Are you Confirm Delete ?</h5>
+					<img src="{{ post.image.url }}" alt='{{ post.image.url }}' class='card shadow'>
+					<h6 class="text-light">Posted on : {{post.uploaded_at}}</h6>
+					<button type="submit" class="btn btn-danger">Delete</button>
+					<a class="btn btn-info m-4" href="{% url 'post:postdetail' post.slug %}">Cancel</a>
+				</form>
+			{% else %}
+				<h3 class="text-warning">You Are Trying to Delete other's Post..</h3>
+				<h4 class="text-danger"> You are Not allowed to do this Activity </h4>
+			{% endif %}
+		</div>
+	</div>
+{% endblock %}

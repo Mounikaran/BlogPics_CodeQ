@@ -1,0 +1,15 @@
+{% extends 'codeq/codeq_base.html' %}
+
+{% load bootstrap4 %}
+
+{% block content %}
+<div class="card">
+  <form method="post" action="">
+    {% csrf_token %}
+    {{ question.question }}
+    {{ question.uploaded_at }}
+    <input type="submit" class="btn btn-danger text-center" value="Delete">
+    <a class="btn btn-info m-4" href="{% url 'account:codeq_profile' %}">Cancel</a>
+  </form>
+</div>
+{% endblock %}

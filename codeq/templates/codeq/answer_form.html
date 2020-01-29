@@ -1,0 +1,14 @@
+{% extends 'codeq/codeq_base.html' %}
+
+{% load bootstrap4 %}
+
+{% block content %}
+
+<div class="card w-100 p-4">
+  <form method="post">
+    {% csrf_token %}
+    {% bootstrap_form form %}
+    <input type="submit" class="btn btn-outline-success text-center" value="Submit Your Answer">
+  </form>
+</div>
+{% endblock %}

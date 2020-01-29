@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block content%}
+
+    {% if user.is_authenticated %}
+  <div class="card w-100 p-2 bg-light">
+    <div class="row">
+      <div class="col-md-8" style="padding-left:5%;">
+        <h2 class="text-primary">@{{ user.username }}</h2>
+        <h5>First Name : {{ user.first_name }}</h5>
+        <h5 style="margin-top:2%; margin-bottom:2%; ">Last name : {{ user.last_name }}</h5>
+        <h5>Email Address : {{ user.email }}</h5>
+      </div>
+      <div class="col-md-4 text-center">
+        <a class="btn btn-outline-dark ml-4 w-75 p-2 m-2" href="{% url 'account:edit_profile'%}">Edit <i class="fas fa-user-edit"></i></a>
+        <a class="btn btn-outline-danger ml-4 w-75 p-2 m-2" href="{% url 'account:deleteAccount' user.id %}">Delete Account <i class="fas fa-user-minus"></i></a>
+      </div>
+    </div>
+    </div>
+
+  <h2 class="text-white p-2 card bg-dark text-center my-2">Posts</h2>
+    <div class="row">
+    			{% for post in post_list %}
+            {% if user.username == post.post_user.username %}
+            <div class="col-lg-4">
+
+    					<div class="card p-2 m-1 mx-auto bg-light" style="">
+    						<a href="{% url 'post:postdetail' post.slug %}">
+    							<img src="{{ post.image.url }}">
+    						</a>
+                <p>{{ post.caption }}</p>
+    						<p class="text-secondary p-2">{{ post.uploaded_at }}</p>
+                <h5>
+                  <a href="{% url 'post:postdetail' post.slug %}">
+                    <span class="badge badge-dark">
+                      Comments : <span class="badge badge-pill badge-light" >{{ post.comments.count }}</span>
+                    </span>
+                  </a>
+                <h5>
+    					</div>
+            </div>
+            {% endif %}
+    			{% endfor %}
+     </div>
+    {% else %}
+    {% endif %}
+
+{% endblock %}

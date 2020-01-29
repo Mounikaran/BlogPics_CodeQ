@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+{% block content %}
+<div class="d-flex justify-content-center w-100">
+		<div class="card m-4 p-4" style="font-size:1.2em;">
+			<div class="row">
+				<div class="col">
+					<strong><span class="p-2" style="font-size:1.3em;"> {{post.post_user}}</span </strong>
+				</div>
+				{% if user.username == post.post_user.username %}
+					<div class="col">
+						<a href="{% url 'post:delete'  post.slug %}" class="text-danger"><i class="fas fa-trash"></i></a>
+					</div>
+				{% endif %}
+			</div>
+			<div class="card shadow m-2">
+				<a href="{{ post.image.url }}" target="_blank">
+					<img src="{{ post.image.url }}" alt="{{ post.caption }}">
+				</a>
+			</div>
+			<p> {{ post.caption }} </p>
+			 <span style="font-size:0.9em;">{{ post.uploaded_at }}</span>
+			<p class="text-danger" style="margin-top:1em;"><i class="far fa-comments"></i> Comments</p>
+			{% for comment in post.comments.all %}
+				<p style="font-size:0.8em;">
+					<span class="text-success">{{ comment.comment_user }} :</span>
+					{{ comment.text }}.
+					<span style="font-size:0.7em;" class="text-secondary">{{ comment.created_at }}</span>
+					{% if user.username == comment.comment_user or user.username == post.post_user.username %}
+						<a class="text-info" href="{% url 'post:remove_comment' comment.pk %}">
+							<i class="fas fa-trash-alt"></i>
+						</a>
+					{% endif %}
+				</p>
+			{% empty %}
+				<p class="text-secondary">No comments</p>
+			{% endfor %}
+			<a href="{% url 'post:comment' post.slug %}">
+				<i class="fas fa-comments"> comment </i>
+			</a>
+		</div>
+</div>
+{% endblock %}

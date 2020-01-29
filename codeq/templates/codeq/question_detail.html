@@ -1,0 +1,60 @@
+{% extends 'codeq/codeq_base.html' %}
+
+{% block content %}
+    <div class="row">
+      <div class="card m-4 p-4 w-100">
+        <h5 class="text-info">
+          <div class="row">
+            <div class="col-10">
+              {{ question.question_user }}
+              <small>
+                <span class="text-secondary"> {{ question.question_time }} </span>
+              </small>
+            </div>
+            {% if user.username == question.question_user.username %}
+      				<div class="col-2 text-right">
+      					<a href="{% url 'codeq:delete_question'  question.slug %}" class="text-danger"><i class="fas fa-trash-alt"></i></a>
+      				</div
+      			{% endif %}
+          </div>
+        </h5>
+        <h4 class="text-dark">
+          {{ question.question }}
+        </h4>
+        <div class="container bg-light p-2">
+          {{ question.code }}
+        </div>
+        <a class="m-2 text-right font-weight-bold" href="{% url 'codeq:add_answer' slug=question.slug %}">Answer</a>
+        {% for answer in question.answers.all %}
+        <div class="m-1 p-2 bg-light card w-100">
+          <p>
+            >> {{ answer.answer }}
+          </p>
+          <p class="text-secondary">
+            {{ answer.answered_user }}, {{ answer.answer_time }}
+
+          {% if user.username == answer.answered_user.username %}
+						<a class="text-danger" href="{% url 'codeq:delete_answer' answer.slug %}">
+							<i class="fas fa-trash"></i>
+						</a>
+          {% endif %}
+          </p>
+          <span class="badge badge-warning w-25">
+            Reply : {{ answer.reply.count }}
+          </span>
+            {% for rply in answer.reply.all %}
+              <p>
+                <span class="text-primary">{{ rply.reply_user }} : </span>  {{ rply.reply }}. <span class="text-secondary">{{ rply.reply_time }}<span>
+                  {% if user.username == rply.reply_user.username %}
+        						<a class="text-danger" href="{% url 'codeq:delete_reply' rply.pk %}">
+        							<i class="far fa-trash-alt"></i>
+        						</a>
+                  {% endif %}
+              </p>
+            {% endfor %}
+          <a class="m-2 text-right font-weight-bold" href="{% url 'codeq:add_reply' slug=answer.slug %}"> Reply <i class="fas fa-reply"></i></a>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+{% endblock %}

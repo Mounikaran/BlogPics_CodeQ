@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+ {% load staticfiles %}
+<html lang="en" dir="ltr">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<head>
+    <!-- Logo -->
+    <link rel="icon" href="{% static '/images/blogpics_head_img.png' %}" type="image/png">
+
+    <title>BlogPics</title>
+
+    <!-- Bootstrap 4 links -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <!-- Custom Css -->
+    <link rel="stylesheet" href="{% static '/css/mystyle.css' %}">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Audiowide|Bitter|Bree+Serif|Pacifico|Saira+Stencil+One|Varela+Round|Supermercado+One|Lobster|Acme|Baloo+Bhai|Patua+One|Aladin|Concert+One&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+
+</head>
+
+<body class="bg-grad-1">
+
+    <div class="w-100 fixed-top">
+        <div class="bg-pink-aqua">
+            <nav class="navbar navbar-expand-md pd-4">
+                <h2 class="grad-ani-pink"><a class="navbar-link text-warning font-style-2 grad-ani-pink" href="{% url 'post:postlist' %} ">BlogPics</a> </h2>
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                  <span class="fas fa-align-center"></span>
+                </button>
+
+                <div class="collapse navbar-collapse ml-auto" id="navbarCollapse">
+                  <div class="navbar-nav ml-auto" style="font-weight:bold;">
+                  {% if user.is_authenticated %}
+                    <a class="nav-item navbar-link p-1 pr-4 font-style-9" href="{% url 'post:createpost' %}" style="color:greenyellow; font-size:1.4em;">Post</a>
+                    <a class="nav-item navbar-link p-1 pr-4 font-style-8" href="{% url 'account:profile' %} " style="color:white; font-size:1.4em;"> Hi {{ user.username }} <i class="far fa-user-circle"></i> </a>
+                    <a class="nav-item navbar-link p-1 pr-4 font-style-5" href="{% url 'account:logout' %} " style="color:#c43e00; font-size:1.4em;">Logout <i class="fas fa-sign-out-alt"></i></a>
+                  {% else %}
+                    <a class="nav-item navbar-link p-1 pr-4 font-style-5" href="{% url 'account:login' %} " style="color:#c43e00; font-size:1.4em;"> <i class="fas fa-sign-in-alt"></i> Login</a>
+                    <a class="nav-item navbar-link p-1 pr-4 font-style-8 text-light" href="{% url 'account:signup' %} " style=" font-size:1.4em;">Signup <i class="fas fa-user-plus"></i></a>
+                  {% endif %}
+                  <a class="nav-item navbar-link p-1 text-light" href="{% url 'home' %}"><i class="fas fa-home" style="font-size:1.5em;"></i></a>
+                </div>
+              </div>
+            </nav>
+        </div>
+    </div>
+
+    <div class=" container font-style-6 w-100" style="margin-top:6%;">
+      <h1 style="color:transparent">BlogPics</h1>
+        {% block content %}
+
+        {% endblock %}
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+</body>
+
+</html>

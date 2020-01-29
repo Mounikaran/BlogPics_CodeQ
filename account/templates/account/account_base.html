@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+{% load bootstrap4 %}
+{% load staticfiles %}
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- icon logo -->
+    <link rel="icon" href="{% static '/images/account_head_img.png' %}" type="image/png">
+    <!-- Bootstrap 4 links -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <!-- Custom Css -->
+    <link rel="stylesheet" href="{% static '/css/mystyle.css' %}">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Audiowide|Bitter|Bree+Serif|Pacifico|Saira+Stencil+One|Varela+Round|Supermercado+One|Lobster|Acme|Baloo+Bhai|Patua+One|Aladin|Concert+One&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+
+    {% block content_head %}
+    {% endblock %}
+
+  </head>
+
+{% block content_body %}
+{% endblock %}
+
+  </html>

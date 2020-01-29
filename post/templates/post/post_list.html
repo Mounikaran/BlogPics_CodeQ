@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% load bootstrap4 %}
+
+{% block content %}
+    {% for post in post_list %}
+      <div class="card p-1 bg-grad-2 mt-2">
+        <div class="row">
+          <div class="col-md-8">
+            <div class="card p-1 bg-grad-6">
+              <div class="card p-1 mb-1 pl-2">
+                <strong> {{ post.post_user }} </strong>
+              </div>
+              <div class="card p-1 bg-dark">
+                  <a href="{% url 'post:postdetail' post.slug %}">
+                    <img src="{{ post.image.url }}" alt="{{ post.image.Name }}" style="width:100%;">
+                  </a>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card p-2 h-100">
+              <p> {{ post.caption }} </p>
+              <p class="text-secondary"> {{ post.uploaded_at }} </p>
+              <p>
+                  <a class="text-danger" href="{% url 'post:postdetail' post.slug %}">Comments : <span class="badge badge-danger"> {{ post.comments.count }} </span> </a>
+              </p>
+                {% for comment in post.comments.all %}
+                  <p class="font-style-13" style="font-size:1.3em;">
+                    <span class="text-primary">{{ comment.comment_user }}</span> : {{ comment.text }}
+                  </p>
+                {% empty %}
+                  <p class="text-center text-secondary">No Comments</p>
+                {% endfor %}
+                {% if user.is_authenticated %}
+                  <a href="{% url 'post:comment' post.slug %}" class="btn btn-outline-info">
+                    <i class="fas fa-comments"> comment </i>
+                  </a>
+                {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    {% empty %}
+        <h3 class="text-light text-center">No posts</h3>
+    {% endfor %}
+{% endblock %}
