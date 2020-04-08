@@ -73,16 +73,14 @@ def delete_answer(request, slug):
 def add_reply(request, slug):
     answer = get_object_or_404(Answer, slug=slug)
     if request.method == "POST":
-        form = ReplyForm(request.POST)
-        if form.is_valid():
-            reply = form.save(commit=False)
-            reply.answer = answer
-            reply.reply_user = request.user
-            reply.save()
-            return redirect('codeq:question_list')
+        reply = Reply()
+        reply.reply = request.POST.get("replyBox")
+        reply.answer = answer
+        reply.reply_user = request.user
+        reply.save()
+        return redirect('codeq:question_list')
     else:
-        form = ReplyForm()
-    return render(request, 'codeq/reply_form.html', {'form':form})
+        return redirect('codeq:question_list')
 
 @login_required(login_url='/accounts/login/')
 def delete_reply(request, pk):
