@@ -52,7 +52,9 @@
                   {% endif %}
               </p>
             {% endfor %}
-          <a class="m-2 text-right font-weight-bold" href="{% url 'codeq:add_reply' slug=answer.slug %}"> Reply <i class="fas fa-reply"></i></a>
+            <div class="d-flex justify-content-end">
+              {% include 'codeq/reply_form.html' %}
+            </div>
         </div>
         {% endfor %}
       </div>
