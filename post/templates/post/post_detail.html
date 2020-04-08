@@ -35,9 +35,9 @@
 			{% empty %}
 				<p class="text-secondary">No comments</p>
 			{% endfor %}
-			<a href="{% url 'post:comment' post.slug %}">
-				<i class="fas fa-comments"> comment </i>
-			</a>
+			{% if user.is_authenticated %}
+				{% include 'post/comment_form.html' %}
+			{% endif %}
 		</div>
 </div>
 {% endblock %}
