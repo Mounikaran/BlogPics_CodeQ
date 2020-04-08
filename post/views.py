@@ -62,17 +62,14 @@ def delete_post(request, slug):
 def add_comment_to_post(request, slug):
     post = get_object_or_404(Post, slug=slug)
     if request.method == "POST":
-        form = CommentForm(request.POST)
-        if form.is_valid():
-            comment = form.save(commit=False)
-            comment.post = post
-            comment.comment_user = request.user
-            comment.save()
-            return redirect('post:postlist')
+        comment = Comment()
+        comment.text = request.POST.get("commentBox")
+        comment.post = post
+        comment.comment_user = request.user
+        comment.save()
+        return redirect('post:postlist')
     else:
-        form = CommentForm()
-    return render(request, 'post/comment_form.html', {'form': form})
-
+        return redirect('post:postlist')
 
 @login_required
 def comment_approve(request, pk):
