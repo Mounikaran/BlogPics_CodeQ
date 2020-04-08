@@ -1,12 +1,8 @@
-{% extends 'base.html' %}
+<form class="form-inline" action="{% url 'post:comment' post.slug %}" method="post">
 
-{% load bootstrap4 %}
+  {% csrf_token %}
+  <input type="text" name="commentBox" placeholder="Comment Here" class="form-control form-control-sm mr-2" required>
+  <input type="submit" class="btn btn-sm btn-primary" value="Comment">
 
-{% block content %}
-  <form class="text-light" method="post">
-    {% csrf_token %}
-    {% bootstrap_form form %}
-    <input type="submit" class="btn btn-info" value="Comment">
-  </form>
+</form>
 
-{% endblock %}
